@@ -3,6 +3,7 @@
 
 import cv2
 import threading
+import urllib
 from time import sleep
 from datetime import datetime
 
@@ -36,4 +37,14 @@ class FaceThread(threading.Thread):
 			#認識結果の保存(ここで送信する)
 			self._image_path = self._now + '.jpg'
 			cv2.imwrite(self._image_path, self._frame)
+			# 1. imwriteをrailsに送信する
+			# 2. 結果を，nodeに送信する
+			# retが帰ってきたと想定(string, "true"か"false"で)
+			url = 'https://salespause-phone.au-syd.mybluemix.net/status/sales'
+			values = {'isSalse' : ret }
+			data = urllib.parse.urlencode(values)
+			data = data.encode('ascii') # data should be bytes
+			req = urllib.request.Request(url, data)
+			with urllib.request.urlopen(req) as response:
+			       the_page = response.read()
 			sleep(10)

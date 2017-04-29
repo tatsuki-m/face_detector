@@ -3,6 +3,7 @@
 
 import cv2
 import threading
+from time import sleep
 from datetime import datetime
 
 class FaceThread(threading.Thread):
@@ -27,10 +28,12 @@ class FaceThread(threading.Thread):
 			self._color = (255, 255, 255) #白
 			for self._rect in self._facerect:
 				#検出した顔を囲む矩形の作成
+				# 出力に反映される
 				cv2.rectangle(self._frame, tuple(self._rect[0:2]),tuple(self._rect[0:2] + self._rect[2:4]), self._color, thickness=2)
 
 			#現在の時間を取得
 			self._now = datetime.now().strftime('%Y%m%d%H%M%S')
-			#認識結果の保存
+			#認識結果の保存(ここで送信する)
 			self._image_path = self._now + '.jpg'
 			cv2.imwrite(self._image_path, self._frame)
+			sleep(10)

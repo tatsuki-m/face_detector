@@ -2,7 +2,7 @@ import threading
 from RecordVoice import *
 from bottle import route, run
 
-test = RecordVoice()
+rec = RecordVoice()
 @route('/record/start')
 def startRec():
     if test.isRecording == 0:

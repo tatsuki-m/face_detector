@@ -4,7 +4,8 @@ from datetime import datetime
 from FaceThread import *
 
 # カメラをキャプチャ開始
-cap = cv2.VideoCapture('http://172.16.42.136:8090/stream/video.mjpeg')
+# cap = cv2.VideoCapture('http://172.16.42.136:8090/stream/video.mjpeg')
+cap = cv2.VideoCapture(0)
 
 while True:
 	ret, frame = cap.read()
